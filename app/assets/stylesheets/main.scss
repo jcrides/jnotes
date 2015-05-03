@@ -1,0 +1,30 @@
+.ul-nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: lightgrey;
+}
+
+.li-inline {
+  display: inline;
+  height: 40px;
+  width: 100px;
+  font-size: 24px;
+  color: black;
+}
+
+.li-inline a:link, .li-inline a:visited {
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+
+.li-inline a:hover, .li-inline a:active {
+  background: dimgrey;
+  color: whitesmoke;
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
