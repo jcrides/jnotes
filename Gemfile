@@ -5,6 +5,17 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
+
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass'
+gem 'devise', '>= 3.2.4'
+gem 'factory_girl_rails', '~> 4.0'
+gem 'figaro', '>= 1.0.0'
+gem 'simple_form'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -31,6 +42,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :development do
+  gem 'quiet_assets'
+  gem 'rubocop', require: false
+end
+
+group :test do
+  gem 'minitest-reporters'
+  gem 'simplecov', :require => false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
