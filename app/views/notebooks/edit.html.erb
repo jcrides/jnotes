@@ -1,0 +1,10 @@
+<h1>Edit Notebook</h1>
+
+<%= simple_form_for @notebook do |f| %>
+  <%= f.input :name %>
+  <br>
+  <%= f.submit 'Create' %>
+<% end %>
+<br>
+<%= link_to 'Show', @notebook %>
+<%= link_to 'Back', notebooks_path %>

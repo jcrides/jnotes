@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Notebooks</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @notebooks.each do |notebook| %>
+    <tr>
+      <td><%= link_to notebook.name, notebook  %>&nbsp;&nbsp;&nbsp;</td>
+      <td>|&nbsp;<%= link_to 'Edit', edit_notebook_path(notebook) %>&nbsp;</td>
+      <td>|&nbsp;<%= link_to 'Destroy', notebook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'New Notebook', new_notebook_path %>
+<br>
+<%= link_to 'Home', '/' %>
