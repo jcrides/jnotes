@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'static_pages#index'
 
-  resources :notebooks
+  resources :notebooks do
+    resources :normalnotes, :only => [:create]
+  end
   resources :normalnotes
   resources :securenotes
 

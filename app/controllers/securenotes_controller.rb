@@ -4,7 +4,7 @@ class SecurenotesController < ApplicationController
   end
 
   def new
-    @securenote = Securenote.new
+    @securenote = Securenote.new(:notebook_id => params[:notebook_id])
   end
 
   def edit

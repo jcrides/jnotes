@@ -4,7 +4,7 @@ class NormalnotesController < ApplicationController
   end
 
   def new
-    @normalnote = Normalnote.new
+    @normalnote = Normalnote.new(:notebook_id => params[:notebook_id])
   end
 
   def edit
@@ -12,8 +12,9 @@ class NormalnotesController < ApplicationController
   end
 
   def create
-    @normalnote = Normalnote.new(normalnote_params)
-    if @normalnote.save
+    @notebook = Notebook.where(:id => params[:notebook_id]).first
+    @normalnote = @notebook.normalnotes.create(normalnote_params)
+    if @normalnote.valid?
       redirect_to @normalnote
     else
       render 'new'
