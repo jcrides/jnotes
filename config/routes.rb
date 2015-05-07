@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   root 'static_pages#index'
 
   resources :notebooks do
-    resources :normalnotes, :only => [:create]
+    resources :normalnotes, :only => [:create, :new]
   end
-  resources :normalnotes
+  resources :normalnotes, :except => [:create, :new]
   resources :securenotes
 
   # The priority is based upon order of creation: first created -> highest priority.
