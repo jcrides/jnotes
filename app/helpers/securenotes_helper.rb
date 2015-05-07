@@ -1,0 +1,2 @@
+module SecurenotesHelper
+end

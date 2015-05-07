@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Showing Secure note</h1>
+<br>
+<h2>Title: <small><%= @securenote.title %></small></h2>
+<br>
+<h2>Note:</h2>
+<p>
+  <%= @securenote.note_text %>
+</p>
+<br>
+<%= link_to 'Back', notebook_path(@securenote.notebook_id) %> |
+<%= link_to 'Edit', edit_securenote_path %>

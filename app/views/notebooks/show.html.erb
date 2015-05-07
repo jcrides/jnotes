@@ -5,7 +5,10 @@
 <h2>Name: <small><%= @notebook.name %></small></h2>
 <h3>Normalnotes in this notebook:</h3>
 <%= render 'normalnotes/nntable' %>
-
-<br>
+<%= link_to 'New', new_normalnote_path(:notebook_id => @notebook.id), :class => 'btn btn-success' %>
+<h3>Securenotes in this notebook:</h3>
+<%= render 'securenotes/nntable' %>
+<%= link_to 'New', new_securenote_path(:notebook_id => @notebook.id), :class => 'btn btn-danger' %>
+<br><br>
 <%= link_to 'Edit', edit_notebook_path(@notebook) %> |
 <%= link_to 'Back', notebooks_path %>

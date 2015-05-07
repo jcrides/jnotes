@@ -6,6 +6,7 @@ gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'attr_encrypted'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'devise', '>= 3.2.4'
