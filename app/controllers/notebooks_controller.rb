@@ -33,6 +33,13 @@ class NotebooksController < ApplicationController
     end
   end
 
+  def destroy
+    @notebook = Notebook.where(:id => params[:id]).first
+    @notebook.destroy
+
+    redirect_to notebooks_path
+  end
+
   private
   def notebook_params
     params.require(:notebook).permit(:name)
