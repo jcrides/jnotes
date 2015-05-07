@@ -5,6 +5,7 @@ class NotebooksController < ApplicationController
 
   def show
     @notebook = Notebook.where(:id => params[:id]).first
+    @normalnotes = Normalnote.where(:notebook_id => params[:id])
   end
 
   def new

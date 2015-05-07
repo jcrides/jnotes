@@ -1,0 +1,20 @@
+<table class='table table-condensed'>
+  <thead>
+  <tr>
+    <th class='col-xs-1'>Title</th>
+    <th class='col-xs-9'>Note text</th>
+    <th colspan='2' class='col-xs-2'></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @normalnotes.each do |normalnote| %>
+    <tr>
+      <td class='col-xs-1'><%= link_to normalnote.title, normalnote_path %>&nbsp;&nbsp;</td>
+      <td class='col-xs-9'><%= normalnote.note_text %></td>
+      <td class='col-xs-1'><%= link_to 'Edit', edit_normalnote_path %></td>
+      <td class='col-xs-1'><%= link_to 'Delete', normalnote, :method => :delete, :data => { confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

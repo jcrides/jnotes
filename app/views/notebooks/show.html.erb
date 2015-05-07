@@ -2,10 +2,10 @@
 
 <h1>Showing Notebook</h1>
 
-<h2>Name: </h2>
-<h2><small><%= @notebook.name %></small></h2>
+<h2>Name: <small><%= @notebook.name %></small></h2>
+<h3>Normalnotes in this notebook:</h3>
+<%= render 'normalnotes/nntable' %>
 
 <br>
-
 <%= link_to 'Edit', edit_notebook_path(@notebook) %> |
 <%= link_to 'Back', notebooks_path %>
