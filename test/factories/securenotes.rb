@@ -1,10 +1,6 @@
 FactoryGirl.define do
   factory :securenote do
-    title "MyString"
-encrypted_note_text "MyText"
-notebook_id 1
-description "MyString"
-attachments "MyString"
+    title "Secure"
+    note_text "Yup, I'm a secure note."
   end
-
 end
