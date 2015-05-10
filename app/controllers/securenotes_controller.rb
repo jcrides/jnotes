@@ -12,8 +12,9 @@ class SecurenotesController < ApplicationController
   end
 
   def create
-    @securenote = Securenote.new(securenote_params)
-    if @securenote.save
+    @notebook = Notebook.where(:id => params[:notebook_id]).first
+    @securenote = @notebook.securenotes.create(securenote_params)
+    if @securenote.valid?
       redirect_to @securenote
     else
       render 'new'

@@ -1,6 +1,6 @@
 <h1>New Secure note</h1>
 
-<%= render 'form' %>
+<%= render 'form', :securenote => @securenote, :url => notebook_securenotes_path(@securenote.notebook_id) %>
 
 <%= link_to 'Show', @securenote %> |
 <%= link_to 'Back', notebook_path(@securenote.notebook_id) %>

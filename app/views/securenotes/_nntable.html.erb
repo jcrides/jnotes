@@ -10,9 +10,9 @@
   <tbody>
   <% @securenotes.each do |securenote| %>
     <tr>
-      <td class='col-xs-1'><%= link_to securenote.title, securenote_path %>&nbsp;&nbsp;</td>
+      <td class='col-xs-1'><%= link_to securenote.title, securenote_path(securenote) %>&nbsp;&nbsp;</td>
       <td class='col-xs-9'><%= securenote.note_text %></td>
-      <td class='col-xs-1'><%= link_to 'Edit', edit_securenote_path %></td>
+      <td class='col-xs-1'><%= link_to 'Edit', edit_securenote_path(securenote) %></td>
       <td class='col-xs-1'><%= link_to 'Delete', securenote, :method => :delete, :data => { confirm: 'Are you sure?'} %></td>
     </tr>
   <% end %>

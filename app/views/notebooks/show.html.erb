@@ -8,7 +8,7 @@
 <%= link_to 'New', new_notebook_normalnote_path(@notebook), :class => 'btn btn-success' %>
 <h3>Securenotes in this notebook:</h3>
 <%= render 'securenotes/nntable' %>
-<%= link_to 'New', new_securenote_path(:notebook_id => @notebook.id), :class => 'btn btn-danger' %>
+<%= link_to 'New', new_notebook_securenote_path(@notebook), :class => 'btn btn-danger' %>
 <br><br>
 <%= link_to 'Edit', edit_notebook_path(@notebook) %> |
 <%= link_to 'Back', notebooks_path %>
