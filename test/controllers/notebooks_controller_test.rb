@@ -36,7 +36,7 @@ class NotebooksControllerTest < ActionController::TestCase
     assert_redirected_to notebook_path(notebook.id)
   end
 
-  test 'should render edit' do
+  test 'should not update name' do
     put :update, :id => @notebook.id, :notebook => { :name => '' }
 
     refute Notebook.find_by_name('')
@@ -50,7 +50,7 @@ class NotebooksControllerTest < ActionController::TestCase
     assert_redirected_to notebook_path(notebook.id)
   end
 
-  test 'should render new' do
+  test 'should not create notebook' do
     post :create, :notebook => { :name => ''}
 
     refute Notebook.find_by_name('')
