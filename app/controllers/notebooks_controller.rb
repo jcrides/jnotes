@@ -28,7 +28,7 @@ class NotebooksController < ApplicationController
 
   def update
     @notebook = Notebook.where(:id => params[:id]).first
-    if @notebook.updated(notebook_params)
+    if @notebook.update_attributes(notebook_params)
       redirect_to @notebook
     else
       render 'edit'
