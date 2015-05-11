@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Showing Folder</h1>
+
+<h2>Name: <small><%= @folder.name %></small></h2>
+<h3>Links in this folder:</h3>
+
+<%= link_to 'Edit', edit_folder_path(@folder) %> |
+<%= link_to 'Back', folders_path %>

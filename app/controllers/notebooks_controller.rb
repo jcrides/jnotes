@@ -14,8 +14,8 @@ class NotebooksController < ApplicationController
   end
 
   def create
-    @notebook = Notebook.new(notebook_params)
-    if @notebook.save
+    @notebook = Notebook.create(notebook_params)
+    if @notebook.valid?
       redirect_to @notebook
     else
       render 'new'

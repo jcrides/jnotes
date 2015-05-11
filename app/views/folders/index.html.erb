@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Folders</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @folders.each do |folder| %>
+    <tr>
+      <td><%= link_to folder.name, folder  %>&nbsp;&nbsp;&nbsp;</td>
+      <td>|&nbsp;<%= link_to 'Edit', edit_folder_path(folder) %>&nbsp;</td>
+      <td>|&nbsp;<%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'New Folder', new_folder_path %>
+<br>
+<%= link_to 'Home', '/' %>
