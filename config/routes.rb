@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'links/show'
+
+  get 'links/new'
+
+  get 'links/edit'
+
   devise_for :users
   root 'static_pages#index'
 
@@ -10,7 +16,10 @@ Rails.application.routes.draw do
   resources :normalnotes, :except => [:create, :new]
   resources :securenotes, :except => [:create, :new]
 
-  resources :folders
+  resources :folders do
+    resources :links, :only => [:create, :new]
+  end
+  resources :links, :except => [:create, :new]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

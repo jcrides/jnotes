@@ -1,0 +1,6 @@
+<h1>Editing Link</h1>
+
+<%= render 'form', :link => @link, :url => link_path(@link.id) %>
+
+<%= link_to 'Show', @link %> |
+<%= link_to 'Back', folder_path(@link.folder_id) %>

@@ -5,6 +5,7 @@ class FoldersController < ApplicationController
 
   def show
     @folder = Folder.where(:id => params[:id]).first
+    @links = Link.where(:folder_id => params[:id])
   end
 
   def new

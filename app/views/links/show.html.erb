@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Showing Link</h1>
+<br>
+<h2>Title: <small><%= @link.title %></small></h2>
+<h2>URL: <small><%= @link.url %></small></h2>
+<h3>Description: <small><%= @link.description %></small></h3>
+
+<br>
+<%= link_to 'Back', folder_path(@link.folder_id) %> |
+<%= link_to 'Edit', edit_link_path %>
