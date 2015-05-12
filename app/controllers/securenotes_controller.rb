@@ -15,7 +15,7 @@ class SecurenotesController < ApplicationController
 
   def create
     @notebook = Notebook.where(:id => params[:notebook_id]).first
-    @securenote = @notebook.securenotes.create(securenote_params)
+    @securenote = @notebook.securenotes.create(securenote_params.merge({ :user_id => current_user.id }))
     if @securenote.valid?
       redirect_to @securenote
     else

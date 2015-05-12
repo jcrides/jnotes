@@ -15,7 +15,7 @@ class FoldersController < ApplicationController
   end
 
   def create
-    @folder = Folder.create(folder_params)
+    @folder = current_user.folders.create(folder_params)
     if @folder.valid?
       redirect_to @folder
     else

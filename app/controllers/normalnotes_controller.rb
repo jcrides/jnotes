@@ -15,7 +15,7 @@ class NormalnotesController < ApplicationController
 
   def create
     @notebook = Notebook.where(:id => params[:notebook_id]).first
-    @normalnote = @notebook.normalnotes.create(normalnote_params)
+    @normalnote = @notebook.normalnotes.create(normalnote_params.merge({ :user_id => current_user.id }))
     if @normalnote.valid?
       redirect_to @normalnote
     else

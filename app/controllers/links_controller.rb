@@ -1,6 +1,4 @@
 class LinksController < ApplicationController
-  before_action :authenticate_user!
-
   def show
     @link = Link.where(:id => params[:id]).first
   end
@@ -15,7 +13,7 @@ class LinksController < ApplicationController
 
   def create
     @folder = Folder.where(:id => params[:folder_id]).first
-    @link = @folder.links.create(link_params)
+    @link = @folder.links.create(link_params.merge({ :user_id => current_user.id }))
     if @link.valid?
       redirect_to @link
     else
