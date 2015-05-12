@@ -1,4 +1,6 @@
 class FoldersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @folders = Folder.all
   end

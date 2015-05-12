@@ -1,4 +1,6 @@
 class NormalnotesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @normalnote = Normalnote.where(:id => params[:id]).first
   end

@@ -1,4 +1,6 @@
 class SecurenotesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @securenote = Securenote.where(:id => params[:id]).first
   end

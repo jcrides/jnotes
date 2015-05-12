@@ -3,6 +3,8 @@ require 'test_helper'
 class NotebooksControllerTest < ActionController::TestCase
   setup do
     @notebook = create(:notebook)
+    @user = create(:user)
+    sign_in @user
   end
 
   test 'should get index' do

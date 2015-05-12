@@ -3,6 +3,8 @@ require 'test_helper'
 class FoldersControllerTest < ActionController::TestCase
   setup do
     @folder = create(:folder)
+    @user = create(:user)
+    sign_in @user
   end
 
   test "should get index" do

@@ -1,4 +1,6 @@
 class NotebooksController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @notebooks = Notebook.all
   end

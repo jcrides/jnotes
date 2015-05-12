@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :notebooks
   has_many :folders
+  has_many :links
+  has_many :normalnotes
+  has_many :securenotes
 end

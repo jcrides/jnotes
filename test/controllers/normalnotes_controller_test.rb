@@ -4,6 +4,8 @@ class NormalnotesControllerTest < ActionController::TestCase
   setup do
     @notebook = create(:notebook)
     @normalnote = create(:normalnote, :notebook_id => @notebook.id)
+    @user = create(:user)
+    sign_in @user
   end
 
   test 'should not get index' do

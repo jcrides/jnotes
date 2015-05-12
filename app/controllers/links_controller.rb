@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @link = Link.where(:id => params[:id]).first
   end

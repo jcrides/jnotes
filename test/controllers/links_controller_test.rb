@@ -4,6 +4,8 @@ class LinksControllerTest < ActionController::TestCase
   setup do
     @folder = create(:folder)
     @link = create(:link, :folder_id => @folder.id)
+    @user = create(:user)
+    sign_in @user
   end
 
   test 'should not get index' do

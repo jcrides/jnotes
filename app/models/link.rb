@@ -3,4 +3,5 @@ class Link < ActiveRecord::Base
   validates :url, :presence => true, :length => { :minimum => 10 }
 
   belongs_to :folder
+  belongs_to :user
 end

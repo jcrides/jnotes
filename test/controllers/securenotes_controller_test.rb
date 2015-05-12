@@ -4,6 +4,8 @@ class SecurenotesControllerTest < ActionController::TestCase
   setup do
     @notebook = create(:notebook)
     @securenote = create(:securenote, :notebook_id => @notebook.id)
+    @user = create(:user)
+    sign_in @user
   end
 
   test 'should not get index' do
