@@ -2,12 +2,19 @@ class FoldersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @folders = Folder.all
+    @folders = Folder.where(:user_id => current_user.id)
   end
 
   def show
     @folder = Folder.where(:id => params[:id]).first
-    @links = Link.where(:folder_id => params[:id])
+    if @folder.blank?
+      render :text => 'Folder not found', :status => :not_found
+    else
+      if @folder.user != current_user
+        render :text => 'This is not your folder', :status => :unauthorized
+      end
+      @links = Link.where(:folder_id => params[:id])
+    end
   end
 
   def new
@@ -25,27 +32,40 @@ class FoldersController < ApplicationController
 
   def edit
     @folder = Folder.where(:id => params[:id]).first
+    if @folder.blank?
+      render :text => 'Folder not found', :status => :not_found
+    else
+      if @folder.user != current_user
+        render :text => 'This is not your folder', :status => :unauthorized
+      end
+    end
   end
 
   def update
     @folder = Folder.where(:id => params[:id]).first
-    if @folder.update_attributes(folder_params)
-      redirect_to @folder
+    if @folder.user == current_user
+      if @folder.update_attributes(folder_params)
+        redirect_to @folder
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      render :text => 'This is not your folder', :status => :unauthorized
     end
   end
 
   def destroy
     @folder = Folder.where(:id => params[:id]).first
-    @folder.destroy
-
-    redirect_to folders_path
+    if @folder.user == current_user
+      @folder.destroy
+      redirect_to folders_path
+    else
+      render :text => 'This is not your folder', :status => :unauthorized
+    end
   end
 
   private
   def folder_params
     params.require(:folder).permit(:name)
   end
-
 end
