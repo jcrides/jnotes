@@ -2,9 +2,9 @@ require 'test_helper'
 
 class FoldersControllerTest < ActionController::TestCase
   setup do
-    @folder = create(:folder)
     @user = create(:user)
     sign_in @user
+    @folder = create(:folder, :user_id => @user.id)
   end
 
   test "should get index" do
@@ -60,7 +60,7 @@ class FoldersControllerTest < ActionController::TestCase
   end
 
   test 'should delete folder' do
-    folder = create(:folder)
+    folder = create(:folder, :user_id => @user.id)
 
     delete :destroy, :id => folder.id
     assert_raises ActiveRecord::RecordNotFound do

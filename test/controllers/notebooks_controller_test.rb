@@ -2,9 +2,9 @@ require 'test_helper'
 
 class NotebooksControllerTest < ActionController::TestCase
   setup do
-    @notebook = create(:notebook)
     @user = create(:user)
     sign_in @user
+    @notebook = create(:notebook, :user_id => @user.id)
   end
 
   test 'should get index' do
@@ -60,7 +60,7 @@ class NotebooksControllerTest < ActionController::TestCase
   end
 
   test 'should delete notebook' do
-    notebook = create(:notebook)
+    notebook = create(:notebook, :user_id => @user.id)
 
     delete :destroy, :id => notebook.id
     assert_raises ActiveRecord::RecordNotFound do
