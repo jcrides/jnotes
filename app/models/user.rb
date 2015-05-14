@@ -6,6 +6,5 @@ class User < ActiveRecord::Base
   has_many :notebooks
   has_many :folders
   has_many :links
-  has_many :normalnotes
   has_many :securenotes
 end

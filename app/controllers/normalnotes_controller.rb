@@ -1,8 +1,9 @@
 class NormalnotesController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_current_note, :only => [:show]
+  before_action :require_authorized_for_notes, :only => [:show]
 
   def show
-    @normalnote = Normalnote.where(:id => params[:id]).first
   end
 
   def new
@@ -15,7 +16,7 @@ class NormalnotesController < ApplicationController
 
   def create
     @notebook = Notebook.where(:id => params[:notebook_id]).first
-    @normalnote = @notebook.normalnotes.create(normalnote_params.merge({ :user_id => current_user.id }))
+    @normalnote = @notebook.normalnotes.create(normalnote_params)
     if @normalnote.valid?
       redirect_to @normalnote
     else
@@ -35,5 +36,22 @@ class NormalnotesController < ApplicationController
   private
   def normalnote_params
     params.require(:normalnote).permit(:title, :note_text, :attachments, :notebook_id)
+  end
+
+  helper_method :current_note
+  def current_note
+    @normalnote ||= Normalnote.where(:id => params[:id]).first
+  end
+
+  def require_authorized_for_notes
+    if current_note.notebook.user != current_user
+      render :text => 'This is not your note', :status => :unauthorized
+    end
+  end
+
+  def require_current_note
+    unless current_note
+      render :text => 'There is no such note', :status => :not_found
+    end
   end
 end

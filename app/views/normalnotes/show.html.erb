@@ -2,11 +2,11 @@
 
 <h1>Showing Normal note</h1>
 <br>
-<h2>Title: <small><%= @normalnote.title %></small></h2>
+<h2>Title: <small><%= current_note.title %></small></h2>
 <h2>Note:</h2>
 <p>
-  <%= @normalnote.note_text %>
+  <%= current_note.note_text %>
 </p>
 <br>
-<%= link_to 'Back', notebook_path(@normalnote.notebook_id) %> |
+<%= link_to 'Back', notebook_path(current_note.notebook_id) %> |
 <%= link_to 'Edit', edit_normalnote_path %>
