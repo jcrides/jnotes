@@ -1,6 +1,6 @@
 class NormalnotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_current_note, :only => [:show]
+  before_action :require_current_note, :only => [:show, :edit, :update]
   before_action :require_authorized_for_notes, :only => [:show]
 
   def show
@@ -11,7 +11,6 @@ class NormalnotesController < ApplicationController
   end
 
   def edit
-    @normalnote = Normalnote.where(:id => params[:id]).first
   end
 
   def create
@@ -25,9 +24,8 @@ class NormalnotesController < ApplicationController
   end
 
   def update
-    @normalnote = Normalnote.where(:id => params[:id]).first
-    if @normalnote.update(normalnote_params)
-      redirect_to @normalnote
+    if current_note.update(normalnote_params)
+      redirect_to current_note
     else
       render 'edit'
     end

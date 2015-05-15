@@ -2,10 +2,10 @@ require 'test_helper'
 
 class SecurenotesControllerTest < ActionController::TestCase
   setup do
-    @notebook = create(:notebook)
-    @securenote = create(:securenote, :notebook_id => @notebook.id)
     @user = create(:user)
     sign_in @user
+    @notebook = create(:notebook, :user_id => @user.id)
+    @securenote = create(:securenote, :notebook_id => @notebook.id)
   end
 
   test 'should not get index' do
@@ -17,6 +17,21 @@ class SecurenotesControllerTest < ActionController::TestCase
   test 'should get show' do
     get :show, :id => @securenote.id
     assert_response :success
+  end
+
+  test 'show should fail if not right user' do
+    user = create(:user)
+    notebook = create(:notebook, :user_id => user.id)
+    securenote = create(:securenote, :notebook_id => notebook.id)
+
+    get :show, :id => securenote.id
+    assert_response :unauthorized
+  end
+
+  test 'show should get 404' do
+    get :show, :id => '-1'
+
+    assert_response :not_found
   end
 
   test 'should get new' do
