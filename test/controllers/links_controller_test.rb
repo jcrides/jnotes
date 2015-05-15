@@ -2,10 +2,10 @@ require 'test_helper'
 
 class LinksControllerTest < ActionController::TestCase
   setup do
-    @folder = create(:folder)
-    @link = create(:link, :folder_id => @folder.id)
     @user = create(:user)
     sign_in @user
+    @folder = create(:folder, :user_id => @user.id)
+    @link = create(:link, :folder_id => @folder.id)
   end
 
   test 'should not get index' do
@@ -17,6 +17,21 @@ class LinksControllerTest < ActionController::TestCase
   test 'should get show' do
     get :show, :id => @link.id
     assert_response :success
+  end
+
+  test 'show should fail if not right user' do
+    user = create(:user)
+    folder = create(:folder, :user_id => user.id)
+    link = create(:link, :folder_id => folder.id)
+
+    get :show, :id => link.id
+    assert_response :unauthorized
+  end
+
+  test 'show should get 404' do
+    get :show, :id => '-1'
+
+    assert_response :not_found
   end
 
   test 'should get new' do
