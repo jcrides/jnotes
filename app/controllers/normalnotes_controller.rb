@@ -40,7 +40,11 @@ class NormalnotesController < ApplicationController
 
   helper_method :current_note
   def current_note
-    @normalnote ||= Normalnote.where(:id => params[:id]).first
+    if params[:id].to_i != 0
+      @normalnote ||= Normalnote.where(:id => params[:id]).first
+    else
+      @normalnote ||= Normalnote.where(:slug => params[:id]).first
+    end
   end
 
   def require_authorized_for_notes
