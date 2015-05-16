@@ -29,15 +29,15 @@ class NotebooksController < ApplicationController
   end
 
   def update
-    if @notebook.update_attributes(notebook_params)
-      redirect_to @notebook
+    if current_notebook.update_attributes(notebook_params)
+      redirect_to current_notebook
     else
       render 'edit'
     end
   end
 
   def destroy
-    @notebook.destroy
+    current_notebook.destroy
     redirect_to notebooks_path
   end
 

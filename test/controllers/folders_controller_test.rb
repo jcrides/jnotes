@@ -19,6 +19,20 @@ class FoldersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'show should fail if not right user' do
+    user = create(:user)
+    folder = create(:folder, :user_id => user.id)
+
+    get :show, :id => folder.id
+    assert_response :unauthorized
+  end
+
+  test 'show should get 404' do
+    get :show, :id => '-1'
+
+    assert_response :not_found
+  end
+
   test "should get new" do
     get :new
 

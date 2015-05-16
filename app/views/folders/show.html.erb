@@ -2,10 +2,10 @@
 
 <h1>Showing Folder</h1>
 
-<h2>Name: <small><%= @folder.name %></small></h2>
+<h2>Name: <small><%= current_folder.name %></small></h2>
 <h3>Links in this folder:</h3>
 <%= render 'links/linktable' %>
-<%= link_to 'New', new_folder_link_path(@folder), :class => 'btn btn-success' %>
+<%= link_to 'New', new_folder_link_path(current_folder), :class => 'btn btn-success' %>
 <br><br>
-<%= link_to 'Edit', edit_folder_path(@folder) %> |
+<%= link_to 'Edit', edit_folder_path(current_folder) %> |
 <%= link_to 'Back', folders_path %>

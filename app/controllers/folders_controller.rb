@@ -1,20 +1,14 @@
 class FoldersController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_current_folder, :only => [:show, :edit, :update, :destroy]
+  before_action :require_authorized_for_folders, :only => [:show, :edit, :update, :destroy]
 
   def index
     @folders = Folder.where(:user_id => current_user.id)
   end
 
   def show
-    @folder = Folder.where(:id => params[:id]).first
-    if @folder.blank?
-      render :text => 'Folder not found', :status => :not_found
-    else
-      if @folder.user != current_user
-        render :text => 'This is not your folder', :status => :unauthorized
-      end
-      @links = Link.where(:folder_id => params[:id])
-    end
+    @links = Link.where(:folder_id => params[:id])
   end
 
   def new
@@ -31,41 +25,40 @@ class FoldersController < ApplicationController
   end
 
   def edit
-    @folder = Folder.where(:id => params[:id]).first
-    if @folder.blank?
-      render :text => 'Folder not found', :status => :not_found
-    else
-      if @folder.user != current_user
-        render :text => 'This is not your folder', :status => :unauthorized
-      end
-    end
   end
 
   def update
-    @folder = Folder.where(:id => params[:id]).first
-    if @folder.user == current_user
-      if @folder.update_attributes(folder_params)
-        redirect_to @folder
-      else
-        render 'edit'
-      end
+    if current_folder.update_attributes(folder_params)
+      redirect_to current_folder
     else
-      render :text => 'This is not your folder', :status => :unauthorized
+      render 'edit'
     end
   end
 
   def destroy
-    @folder = Folder.where(:id => params[:id]).first
-    if @folder.user == current_user
-      @folder.destroy
-      redirect_to folders_path
-    else
-      render :text => 'This is not your folder', :status => :unauthorized
-    end
+    current_folder.destroy
+    redirect_to folders_path
   end
 
   private
   def folder_params
     params.require(:folder).permit(:name)
+  end
+
+  helper_method :current_folder
+  def current_folder
+    @folder ||= Folder.where(:id => params[:id]).first
+  end
+
+  def require_authorized_for_folders
+    if current_folder.user != current_user
+      render :text => 'This is not your folder', :status => :unauthorized
+    end
+  end
+
+  def require_current_folder
+    unless current_folder
+      render :text => 'There is no such folder', :status => :not_found
+    end
   end
 end
