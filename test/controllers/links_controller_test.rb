@@ -97,4 +97,12 @@ class LinksControllerTest < ActionController::TestCase
     refute link = Link.find_by_title('')
     assert_template 'new'
   end
+
+  test 'should delete link' do
+    delete :destroy, :id => @link.id
+    assert_raises ActiveRecord::RecordNotFound do
+      refute Link.find(@link.id)
+    end
+    assert_redirected_to folder_path(@link.folder_id)
+  end
 end

@@ -31,6 +31,11 @@ class NormalnotesController < ApplicationController
     end
   end
 
+  def destroy
+    current_note.destroy
+    redirect_to notebook_path(current_note.notebook_id)
+  end
+
   private
   def normalnote_params
     params.require(:normalnote).permit(:title, :note_text, :attachments, :notebook_id)

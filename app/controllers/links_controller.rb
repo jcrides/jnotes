@@ -31,6 +31,11 @@ class LinksController < ApplicationController
     end
   end
 
+  def destroy
+    current_link.destroy
+    redirect_to folder_path(current_link.folder_id)
+  end
+
   private
   def link_params
     params.require(:link).permit(:title, :url, :description, :folder_id)

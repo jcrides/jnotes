@@ -81,4 +81,12 @@ class NormalnotesControllerTest < ActionController::TestCase
     refute normalnote = Normalnote.find_by_title('')
     assert_template 'new'
   end
+
+  test 'should delete normalnote' do
+    delete :destroy, :id => @normalnote.id
+    assert_raises ActiveRecord::RecordNotFound do
+      refute Normalnote.find(@normalnote.id)
+    end
+    assert_redirected_to notebook_path(@normalnote.notebook_id)
+  end
 end

@@ -31,6 +31,11 @@ class SecurenotesController < ApplicationController
     end
   end
 
+  def destroy
+    current_snote.destroy
+    redirect_to notebook_path(current_snote.notebook_id)
+  end
+
   private
   def securenote_params
     params.require(:securenote).permit(:title, :note_text, :attachments, :notebook_id)

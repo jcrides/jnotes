@@ -81,4 +81,12 @@ class SecurenotesControllerTest < ActionController::TestCase
     refute securenote = Securenote.find_by_title('')
     assert_template 'new'
   end
+
+  test 'should delete securenote' do
+    delete :destroy, :id => @securenote.id
+    assert_raises ActiveRecord::RecordNotFound do
+      refute Normalnote.find(@securenote.id)
+    end
+    assert_redirected_to notebook_path(@securenote.notebook_id)
+  end
 end
