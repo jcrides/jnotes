@@ -19,6 +19,20 @@ class NotebooksControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'show should fail if not right user' do
+    user = create(:user)
+    notebook = create(:notebook, :user_id => user.id)
+
+    get :show, :id => notebook.id
+    assert_response :unauthorized
+  end
+
+  test 'show should get 404' do
+    get :show, :id => '-1'
+
+    assert_response :not_found
+  end
+
   test 'should get new' do
     get :new
 

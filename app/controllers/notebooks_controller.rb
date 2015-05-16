@@ -1,21 +1,15 @@
 class NotebooksController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_current_notebook, :only => [:show, :edit, :update, :destroy]
+  before_action :require_authorized_for_notebooks, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @notebooks = Notebook.all.where(:user_id => current_user.id)
+    @notebooks = Notebook.where(:user_id => current_user.id)
   end
 
   def show
-    @notebook = Notebook.where(:id => params[:id]).first
-    if @notebook.blank?
-      render :text => 'Notebook not found', :status => :not_found
-    else
-      if @notebook.user != current_user
-        render :text => 'This is not your notebook', :status => :unauthorized
-      end
-      @normalnotes = Normalnote.where(:notebook_id => params[:id])
-      @securenotes = Securenote.where(:notebook_id => params[:id])
-    end
+    @normalnotes = Normalnote.where(:notebook_id => params[:id])
+    @securenotes = Securenote.where(:notebook_id => params[:id])
   end
 
   def new
@@ -32,41 +26,40 @@ class NotebooksController < ApplicationController
   end
 
   def edit
-    @notebook = Notebook.where(:id => params[:id]).first
-    if @notebook.blank?
-      render :text => 'Notebook not found', :status => :not_found
-    else
-      if @notebook.user != current_user
-        render :text => 'This is not your notebook', :status => :unauthorized
-      end
-    end
   end
 
   def update
-    @notebook = Notebook.where(:id => params[:id]).first
-    if @notebook.user == current_user
-      if @notebook.update_attributes(notebook_params)
-        redirect_to @notebook
-      else
-        render 'edit'
-      end
+    if @notebook.update_attributes(notebook_params)
+      redirect_to @notebook
     else
-      render :text => 'This is not your notebook', :status => :unauthorized
+      render 'edit'
     end
   end
 
   def destroy
-    @notebook = Notebook.where(:id => params[:id]).first
-    if @notebook.user == current_user
-      @notebook.destroy
-      redirect_to notebooks_path
-    else
-      render :text => 'This is not your notebook', :status => :unauthorized
-    end
+    @notebook.destroy
+    redirect_to notebooks_path
   end
 
   private
   def notebook_params
     params.require(:notebook).permit(:name)
+  end
+
+  helper_method :current_notebook
+  def current_notebook
+    @notebook ||= Notebook.where(:id => params[:id]).first
+  end
+
+  def require_authorized_for_notebooks
+    if current_notebook.user != current_user
+      render :text => 'This is not your notebook', :status => :unauthorized
+    end
+  end
+
+  def require_current_notebook
+    unless current_notebook
+      render :text => 'There is no such notebook', :status => :not_found
+    end
   end
 end
