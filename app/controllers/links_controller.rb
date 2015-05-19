@@ -38,7 +38,7 @@ class LinksController < ApplicationController
 
   private
   def link_params
-    params.require(:link).permit(:title, :url, :description, :folder_id)
+    params.require(:link).permit(:title, :url, :description, :folder_id, :tag_list)
   end
 
   helper_method :current_link

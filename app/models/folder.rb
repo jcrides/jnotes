@@ -3,4 +3,6 @@ class Folder < ActiveRecord::Base
 
   belongs_to :user
   has_many :links
+
+  acts_as_taggable
 end

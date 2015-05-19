@@ -4,4 +4,6 @@ class Notebook < ActiveRecord::Base
   belongs_to :user
   has_many :normalnotes
   has_many :securenotes
+
+  acts_as_taggable
 end

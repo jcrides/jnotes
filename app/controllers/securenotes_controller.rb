@@ -38,7 +38,7 @@ class SecurenotesController < ApplicationController
 
   private
   def securenote_params
-    params.require(:securenote).permit(:title, :note_text, :attachments, :notebook_id)
+    params.require(:securenote).permit(:title, :note_text, :attachments, :notebook_id, :tag_list)
   end
 
   helper_method :current_snote

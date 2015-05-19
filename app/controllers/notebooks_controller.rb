@@ -43,7 +43,7 @@ class NotebooksController < ApplicationController
 
   private
   def notebook_params
-    params.require(:notebook).permit(:name)
+    params.require(:notebook).permit(:name, :tag_list)
   end
 
   helper_method :current_notebook

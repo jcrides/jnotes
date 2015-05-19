@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     ansi (1.5.0)
     arel (6.0.0)
     ast (2.0.0)
@@ -225,6 +227,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on
   attr_encrypted
   autoprefixer-rails
   bootstrap-sass

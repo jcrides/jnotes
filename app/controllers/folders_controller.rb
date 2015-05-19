@@ -42,7 +42,7 @@ class FoldersController < ApplicationController
 
   private
   def folder_params
-    params.require(:folder).permit(:name)
+    params.require(:folder).permit(:name, :tag_list)
   end
 
   helper_method :current_folder

@@ -38,7 +38,7 @@ class NormalnotesController < ApplicationController
 
   private
   def normalnote_params
-    params.require(:normalnote).permit(:title, :note_text, :attachments, :notebook_id)
+    params.require(:normalnote).permit(:title, :note_text, :attachments, :notebook_id, :tag_list)
   end
 
   helper_method :current_note
