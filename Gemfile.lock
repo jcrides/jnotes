@@ -65,6 +65,9 @@ GEM
       sass (~> 3.0)
       terminal-table (~> 1.4)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (4.0.5)
       columnize (= 0.9.0)
     coffee-rails (4.1.0)
@@ -212,6 +215,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.1.2)
@@ -232,6 +236,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass
   brakeman
+  bullet
   byebug
   coffee-rails (~> 4.1.0)
   devise (>= 3.2.4)
