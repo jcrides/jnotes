@@ -1,8 +1,8 @@
 <table class='table table-condensed'>
   <thead>
   <tr>
-    <th class='col-xs-1'>Title</th>
-    <th class='col-xs-9'>Note text</th>
+    <th class='col-xs-2'>Title</th>
+    <th class='col-xs-8'>Note text</th>
     <th colspan='2' class='col-xs-2'></th>
   </tr>
   </thead>
@@ -10,8 +10,8 @@
   <tbody>
   <% @securenotes.each do |securenote| %>
     <tr>
-      <td class='col-xs-1'><%= link_to securenote.title, securenote_path(securenote) %>&nbsp;&nbsp;</td>
-      <td class='col-xs-9'><%= securenote.note_text %></td>
+      <td class='col-xs-2'><%= link_to securenote.title, securenote_path(securenote) %>&nbsp;&nbsp;</td>
+      <td class='col-xs-8'><%= securenote.note_text %></td>
       <td class='col-xs-1'><%= link_to 'Edit', edit_securenote_path(securenote) %></td>
       <td class='col-xs-1'><%= link_to 'Delete', securenote, :method => :delete, :data => { confirm: 'Are you sure?'} %></td>
     </tr>

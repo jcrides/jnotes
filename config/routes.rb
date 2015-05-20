@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :notebooks do
     resources :normalnotes, :only => [:create, :new]
     resources :securenotes, :only => [:create, :new]
+    member do
+      post :add_tag
+      post :del_tag
+    end
   end
   resources :normalnotes, :except => [:create, :new]
   resources :securenotes, :except => [:create, :new]

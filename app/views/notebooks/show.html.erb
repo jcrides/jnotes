@@ -1,14 +1,71 @@
 <p id="notice"><%= notice %></p>
+<div class="col-xs-10 col-xs-offset-1">
+  <h1>Showing Notebook</h1>
+  <h2>Name: <small><%= current_notebook.name %></small></h2>
+  <h6>Tags: <% current_notebook.tag_list.each do |tag| %><%= "#{tag} " %><% end %></h6>
 
-<h1>Showing Notebook</h1>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#tagAddModal">
+  Add tag
+  </button>&nbsp;<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#tagDelModal">
+  Del tag
+  </button>
 
-<h2>Name: <small><%= current_notebook.name %></small></h2>
-<h3>Normalnotes in this notebook:</h3>
-<%= render 'normalnotes/nntable' %>
-<%= link_to 'New', new_notebook_normalnote_path(current_notebook), :class => 'btn btn-success' %>
-<h3>Securenotes in this notebook:</h3>
-<%= render 'securenotes/sntable' %>
-<%= link_to 'New', new_notebook_securenote_path(current_notebook), :class => 'btn btn-danger' %>
-<br><br>
-<%= link_to 'Edit', edit_notebook_path(current_notebook) %> |
-<%= link_to 'Back', notebooks_path %>
+  <h3>Normalnotes in this notebook:</h3>
+  <%= render 'normalnotes/nntable' %>
+  <%= link_to 'New', new_notebook_normalnote_path(current_notebook), :class => 'btn btn-success' %>
+  <h3>Securenotes in this notebook:</h3>
+  <%= render 'securenotes/sntable' %>
+  <%= link_to 'New', new_notebook_securenote_path(current_notebook), :class => 'btn btn-success' %>
+  <br><br>
+  <%= link_to 'Edit', edit_notebook_path(current_notebook) %> |
+  <%= link_to 'Back', notebooks_path %>
+
+  <!-- Add Tag Modal -->
+  <div class="modal fade" id="tagAddModal" tabindex="-1" role="dialog" aria-labelledby="tagAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="tagAddLabel">Add a tag</h4>
+        </div>
+        <%= form_tag("/notebooks/#{current_notebook.id}/add_tag", :method => "post") do %>
+          <div class="modal-body">
+            <%= label_tag(:tag, "Tag: ") %>
+            <%= text_field_tag(:tag, "", :class => "form-control") %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag("Add tag", :class => "btn btn-primary") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Tag Modal -->
+  <div class="modal fade" id="tagDelModal" tabindex="-1" role="dialog" aria-labelledby="tagDelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="tagDelLabel">Choose tags to delete</h4>
+        </div>
+        <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => "post") do %>
+          <div class="modal-body">
+            Tags:<br>
+            <% current_notebook.tag_list.each_with_index do |tag, idx| %>
+              <%= label_tag(tag.to_sym) %>
+              <%= check_box_tag(tag.to_sym) %>
+              &nbsp;&nbsp;
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag("Delete", :class => "btn btn-primary") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
