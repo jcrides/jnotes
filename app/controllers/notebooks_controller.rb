@@ -1,7 +1,7 @@
 class NotebooksController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_current_notebook, :only => [:show, :edit, :update, :destroy]
-  before_action :require_authorized_for_notebooks, :only => [:show, :edit, :update, :destroy]
+  before_action :require_current_notebook, :only => [:show, :edit, :update, :destroy, :add_tag, :del_tag]
+  before_action :require_authorized_for_notebooks, :only => [:show, :edit, :update, :destroy, :add_tag, :del_tag]
 
   def index
     @notebooks = Notebook.where(:user_id => current_user.id)

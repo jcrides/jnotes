@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :securenotes, :only => [:create, :new]
     member do
       post :add_tag
-      post :del_tag
+      delete :del_tag
     end
   end
   resources :normalnotes, :except => [:create, :new]

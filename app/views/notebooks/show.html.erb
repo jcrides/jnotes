@@ -2,7 +2,7 @@
 <div class="col-xs-10 col-xs-offset-1">
   <h1>Showing Notebook</h1>
   <h2>Name: <small><%= current_notebook.name %></small></h2>
-  <h6>Tags: <% current_notebook.tag_list.each do |tag| %><%= "#{tag} " %><% end %></h6>
+  <h6>Tags: <% current_notebook.tag_list.each do |tag| %><%= "#{tag} " %>&nbsp;&nbsp;<% end %></h6>
 
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#tagAddModal">
@@ -51,7 +51,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="tagDelLabel">Choose tags to delete</h4>
         </div>
-        <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => "post") do %>
+        <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => "delete") do %>
           <div class="modal-body">
             Tags:<br>
             <% current_notebook.tag_list.each_with_index do |tag, idx| %>

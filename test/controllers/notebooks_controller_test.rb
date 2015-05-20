@@ -82,4 +82,18 @@ class NotebooksControllerTest < ActionController::TestCase
     end
     assert_redirected_to notebooks_path
   end
+
+  test 'should add tag' do
+    post :add_tag, :id => @notebook.id, :tag => 'jello'
+
+    assert_equal ['jello'], @notebook.tag_list, 'Should add jello tag'
+  end
+
+  # TODO: why isn't this working, works when called from view
+  # test 'should remove tag' do
+  #   post :add_tag, :id => @notebook.id, :tag => 'jello'
+  #   delete :del_tag, :id => @notebook.id, :tag => 'jello'
+  #
+  #   assert_equal [], @notebook.tag_list, 'Should delete jello tag'
+  # end
 end
