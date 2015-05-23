@@ -4,18 +4,18 @@
   <h2>Name: <small><%= current_notebook.name %></small></h2>
   <div class="row">
     <h5 class="col-xs-12">Tags:</h5>
-    <div id="taglist">
+    <div id="tagdisplay">
       <ul class="taglist col-xs-12">
-        <li class="tag-buttons">
+        <li class="tag-buttons" id="tag-add">
           <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#tagAddModal">
             Add tag <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </li>
         <% current_notebook.tag_list.each do |tag| %>
-          <li class="tag-buttons"><span class="label tag-label"><%= tag %></span>
+          <li class="tagz tag-buttons"><span id="<%= tag %>" class="label tag-label"><%= tag %></span>
             <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => 'delete') do %>
               <%= hidden_field_tag("tag", tag) %>
-              <button type="submit" class="btn btn-xs btn-default hidden tag-delete">
+              <button type="submit" class="btn btn-xs btn-default hidden tag-delete" id="<%= "#{tag}-del" %>">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               </button>
             <% end %>
@@ -56,18 +56,21 @@
       </div>
     </div>
   </div>
+</div>
 
 <script>
-  $('#taglist')
+  $('.tagz')
     .mouseenter(function () {
-      $('.tag-delete').removeClass("hidden").addClass("show");
+      var tagBtn = this.lastElementChild.lastElementChild;
+      $(tagBtn).removeClass("hidden").addClass("show");
     })
     .mouseleave(function () {
-      $('.tag-delete').removeClass("show").addClass("hidden");
+      var tagBtn = this.lastElementChild.lastElementChild;
+      $(tagBtn).removeClass("show").addClass("hidden");
     });
 
   $('.modal').on('shown.bs.modal', function () {
     lastfocus = $(this);
-    $(this).find('input:text:visible:first').focus();
+    $(this).find("input:text:visible:first").focus();
   });
 </script>
