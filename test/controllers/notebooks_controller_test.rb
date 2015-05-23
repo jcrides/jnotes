@@ -91,7 +91,7 @@ class NotebooksControllerTest < ActionController::TestCase
 
   test 'should remove tag' do
     post :add_tag, :id => @notebook.id, :tag => 'jello'
-    delete :del_tag, :id => @notebook.id, :jello => '1'
+    delete :del_tag, :id => @notebook.id, :tag => 'jello'
 
     assert_equal [], @notebook.tag_list, 'Should delete jello tag'
   end
