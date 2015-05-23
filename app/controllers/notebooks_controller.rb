@@ -42,22 +42,14 @@ class NotebooksController < ApplicationController
   end
 
   def add_tag
-    current_notebook.tag_list.add(params[:tag])
-    current_notebook.save
-
+    current_notebook.add_tag(params[:tag])
     # TODO: should add some validation that the tag saved
     redirect_to current_notebook
   end
 
   def del_tag
-    params.each do |tag|
-      if tag[1] == '1' && tag[0] != 'id'
-        current_notebook.tag_list.delete(tag[0])
-      end
-    end
-    current_notebook.save
-
-    # TODO: should add some validation that the tag(s) were delted
+    current_notebook.remove_tag(params[:tag])
+    # TODO: should add some validation that the tag was delted
     redirect_to current_notebook
   end
 

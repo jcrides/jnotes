@@ -1,15 +1,29 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" xmlns="http://www.w3.org/1999/html"><%= notice %></p>
 <div class="col-xs-10 col-xs-offset-1">
   <h1>Showing Notebook</h1>
   <h2>Name: <small><%= current_notebook.name %></small></h2>
-  <h6>Tags: <% current_notebook.tag_list.each do |tag| %><%= "#{tag} " %>&nbsp;&nbsp;<% end %></h6>
-
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#tagAddModal">
-  Add tag
-  </button>&nbsp;<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#tagDelModal">
-  Del tag
-  </button>
+  <div class="row">
+    <h5 class="col-xs-12">Tags:</h5>
+    <div id="taglist">
+      <ul class="taglist col-xs-12">
+        <li class="tag-buttons">
+          <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#tagAddModal">
+            Add tag <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </li>
+        <% current_notebook.tag_list.each do |tag| %>
+          <li class="tag-buttons"><span class="label tag-label"><%= tag %></span>
+            <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => 'delete') do %>
+              <%= hidden_field_tag("tag", tag) %>
+              <button type="submit" class="btn btn-xs btn-default hidden tag-delete">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
   <h3>Normalnotes in this notebook:</h3>
   <%= render 'normalnotes/nntable' %>
@@ -43,29 +57,17 @@
     </div>
   </div>
 
-  <!-- Delete Tag Modal -->
-  <div class="modal fade" id="tagDelModal" tabindex="-1" role="dialog" aria-labelledby="tagDelLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="tagDelLabel">Choose tags to delete</h4>
-        </div>
-        <%= form_tag("/notebooks/#{current_notebook.id}/del_tag", :method => "delete") do %>
-          <div class="modal-body">
-            Tags:<br>
-            <% current_notebook.tag_list.each_with_index do |tag, idx| %>
-              <%= label_tag(tag.to_sym) %>
-              <%= check_box_tag(tag.to_sym) %>
-              &nbsp;&nbsp;
-            <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <%= submit_tag("Delete", :class => "btn btn-primary") %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  $('#taglist')
+    .mouseenter(function () {
+      $('.tag-delete').removeClass("hidden").addClass("show");
+    })
+    .mouseleave(function () {
+      $('.tag-delete').removeClass("show").addClass("hidden");
+    });
+
+  $('.modal').on('shown.bs.modal', function () {
+    lastfocus = $(this);
+    $(this).find('input:text:visible:first').focus();
+  });
+</script>

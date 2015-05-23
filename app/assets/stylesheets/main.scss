@@ -28,3 +28,19 @@
 .text-center {
   text-align: center;
 }
+
+.taglist {
+  list-style-type: none;
+}
+
+.tag-buttons {
+  display: inline-flex;
+}
+
+.tag-label {
+  font-weight: 300;
+  font-size: 14px;
+  background-color: white;
+  color: black;
+  border: 1px solid lightgrey;
+}
