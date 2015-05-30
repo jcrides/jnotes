@@ -89,4 +89,17 @@ class SecurenotesControllerTest < ActionController::TestCase
     end
     assert_redirected_to notebook_path(@securenote.notebook_id)
   end
+
+  test 'should add tag' do
+    post :add_tag, :id => @securenote.id, :tag => 'jello'
+
+    assert_equal ['jello'], @securenote.tag_list, 'Should add jello tag'
+  end
+
+  test 'should remove tag' do
+    post :add_tag, :id => @securenote.id, :tag => 'jello'
+    delete :del_tag, :id => @securenote.id, :tag => 'jello'
+
+    assert_equal [], @securenote.tag_list, 'Should delete jello tag'
+  end
 end

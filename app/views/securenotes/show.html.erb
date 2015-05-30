@@ -1,12 +1,81 @@
 <p id="notice"><%= notice %></p>
+<div class="col-xs-10 col-xs-offset-1">
+  <h1>Showing note</h1>
+  <h2>Title: <small><%= current_snote.title %></small></h2>
 
-<h1>Showing Secure note</h1>
-<br>
-<h2>Title: <small><%= current_snote.title %></small></h2>
-<h2>Note:</h2>
-<p>
-  <%= current_snote.note_text %>
-</p>
-<br>
-<%= link_to 'Back', notebook_path(current_snote.notebook_id) %> |
-<%= link_to 'Edit', edit_securenote_path %>
+  <div class="row">
+    <h5 class="col-xs-12">Tags:</h5>
+    <div id="tagdisplay">
+      <ul class="taglist col-xs-12">
+        <li class="tag-buttons" id="tag-add">
+          <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#tagAddModal">
+            Add tag <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </li>
+        <% current_snote.tag_list.each do |tag| %>
+          <li class="tagz tag-buttons"><span id="<%= tag %>" class="label tag-label"><%= tag %></span>
+            <%= form_tag("/securenotes/#{current_snote.id}/del_tag", :method => 'delete') do %>
+              <%= hidden_field_tag("tag", tag) %>
+              <button type="submit" class="btn btn-xs btn-default hidden tag-delete" id="<%= "#{tag}-del" %>">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th><h4>Note:</h4></th>
+      </tr>
+    </thead>
+    <tr>
+      <td><%= current_snote.note_text %></td>
+    </tr>
+  </table>
+  <br>
+  <%= link_to 'Back', notebook_path(current_snote.notebook_id) %> |
+  <%= link_to 'Edit', edit_securenote_path %>
+
+  <!-- Add Tag Modal -->
+  <div class="modal fade" id="tagAddModal" tabindex="-1" role="dialog" aria-labelledby="tagAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="tagAddLabel">Add a tag</h4>
+        </div>
+        <%= form_tag("/securenotes/#{current_snote.id}/add_tag", :method => "post") do %>
+          <div class="modal-body">
+            <%= label_tag(:tag, "Tag: ") %>
+            <%= text_field_tag(:tag, "", :class => "form-control") %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= submit_tag("Add tag", :class => "btn btn-primary") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.tagz')
+    .mouseenter(function () {
+      var tagBtn = this.lastElementChild.lastElementChild;
+      $(tagBtn).removeClass("hidden").addClass("show");
+    })
+    .mouseleave(function () {
+      var tagBtn = this.lastElementChild.lastElementChild;
+      $(tagBtn).removeClass("show").addClass("hidden");
+    });
+
+  $('.modal').on('shown.bs.modal', function () {
+    lastfocus = $(this);
+    $(this).find("input:text:visible:first").focus();
+  });
+</script>

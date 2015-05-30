@@ -18,7 +18,12 @@ Rails.application.routes.draw do
     end
   end
   resources :normalnotes, :except => [:create, :new]
-  resources :securenotes, :except => [:create, :new]
+  resources :securenotes, :except => [:create, :new] do
+    member do
+      post :add_tag
+      delete :del_tag
+    end
+  end
 
   resources :folders do
     resources :links, :only => [:create, :new]

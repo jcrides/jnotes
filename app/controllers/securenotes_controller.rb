@@ -36,6 +36,18 @@ class SecurenotesController < ApplicationController
     redirect_to notebook_path(current_snote.notebook_id)
   end
 
+  def add_tag
+    current_snote.add_tag(params[:tag])
+    # TODO: should add some validation that the tag saved
+    redirect_to current_snote
+  end
+
+  def del_tag
+    current_snote.remove_tag(params[:tag])
+    # TODO: should add some validation that the tag was delted
+    redirect_to current_snote
+  end
+
   private
   def securenote_params
     params.require(:securenote).permit(:title, :note_text, :attachments, :notebook_id, :tag_list)
