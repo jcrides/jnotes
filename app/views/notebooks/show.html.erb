@@ -25,10 +25,7 @@
     </div>
   </div>
 
-  <h3>Normalnotes in this notebook:</h3>
-  <%= render 'normalnotes/nntable' %>
-  <%= link_to 'New', new_notebook_normalnote_path(current_notebook), :class => 'btn btn-success' %>
-  <h3>Securenotes in this notebook:</h3>
+  <h3>Notes in this notebook:</h3>
   <%= render 'securenotes/sntable' %>
   <%= link_to 'New', new_notebook_securenote_path(current_notebook), :class => 'btn btn-success' %>
   <br><br>

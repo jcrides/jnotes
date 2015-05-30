@@ -8,7 +8,6 @@ class NotebooksController < ApplicationController
   end
 
   def show
-    @normalnotes = Normalnote.where(:notebook_id => params[:id])
     @securenotes = Securenote.where(:notebook_id => params[:id])
   end
 

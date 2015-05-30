@@ -58,7 +58,7 @@ class SecurenotesControllerTest < ActionController::TestCase
   test 'should not update note title' do
     put :update, :id => @securenote.id, :securenote => { :title => ''}
 
-    refute securenote = Normalnote.find_by_title('')
+    refute securenote = Securenote.find_by_title('')
     assert_template 'edit'
   end
 
@@ -85,7 +85,7 @@ class SecurenotesControllerTest < ActionController::TestCase
   test 'should delete securenote' do
     delete :destroy, :id => @securenote.id
     assert_raises ActiveRecord::RecordNotFound do
-      refute Normalnote.find(@securenote.id)
+      refute Securenote.find(@securenote.id)
     end
     assert_redirected_to notebook_path(@securenote.notebook_id)
   end
