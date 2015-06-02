@@ -36,6 +36,18 @@ class LinksController < ApplicationController
     redirect_to folder_path(current_link.folder_id)
   end
 
+  def add_tag
+    current_link.add_tag(params[:tag])
+    # TODO: should add some validation that the tag saved
+    redirect_to current_link
+  end
+
+  def del_tag
+    current_link.remove_tag(params[:tag])
+    # TODO: should add some validation that the tag was delted
+    redirect_to current_link
+  end
+
   private
   def link_params
     params.require(:link).permit(:title, :url, :description, :folder_id, :tag_list)

@@ -40,6 +40,18 @@ class FoldersController < ApplicationController
     redirect_to folders_path
   end
 
+  def add_tag
+    current_folder.add_tag(params[:tag])
+    # TODO: should add some validation that the tag saved
+    redirect_to current_folder
+  end
+
+  def del_tag
+    current_folder.remove_tag(params[:tag])
+    # TODO: should add some validation that the tag was delted
+    redirect_to current_folder
+  end
+
   private
   def folder_params
     params.require(:folder).permit(:name, :tag_list)

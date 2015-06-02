@@ -10,14 +10,13 @@ Rails.application.routes.draw do
   root 'static_pages#index'
 
   resources :notebooks do
-    resources :normalnotes, :only => [:create, :new]
     resources :securenotes, :only => [:create, :new]
     member do
       post :add_tag
       delete :del_tag
     end
   end
-  resources :normalnotes, :except => [:create, :new]
+
   resources :securenotes, :except => [:create, :new] do
     member do
       post :add_tag
@@ -27,8 +26,18 @@ Rails.application.routes.draw do
 
   resources :folders do
     resources :links, :only => [:create, :new]
+    member do
+      post :add_tag
+      delete :del_tag
+    end
   end
-  resources :links, :except => [:create, :new]
+
+  resources :links, :except => [:create, :new] do
+    member do
+      post :add_tag
+      delete :del_tag
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,4 +1,6 @@
 class Link < ActiveRecord::Base
+  include TaggingHelpers
+
   validates :title, :presence => true, :length => { :minimum => 1 }
   validates :url, :presence => true, :length => { :minimum => 10 }
 
