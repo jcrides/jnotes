@@ -2,73 +2,12 @@
 <div class="col-xs-10 col-xs-offset-1">
   <h1>Showing Link</h1>
   <h2>Title: <small><%= current_link.title %></small></h2>
-
-  <div class="row">
-    <h5 class="col-xs-12">Tags:</h5>
-    <div id="tagdisplay">
-      <ul class="taglist col-xs-12">
-        <li class="tag-buttons" id="tag-add">
-          <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#tagAddModal">
-            Add tag <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </button>
-        </li>
-        <% current_link.tag_list.each do |tag| %>
-          <li class="tagz tag-buttons"><span id="<%= tag %>" class="label tag-label"><%= tag %></span>
-            <%= form_tag("/links/#{current_link.id}/del_tag", :method => 'delete') do %>
-              <%= hidden_field_tag("tag", tag) %>
-              <button type="submit" class="btn btn-xs btn-default hidden tag-delete" id="<%= "#{tag}-del" %>">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-              </button>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
+  <%= render 'shared/taglist', :current_item => current_link, :del_url => del_tag_link_path(current_link) %>
   <h2>URL: <small><%= current_link.url %></small></h2>
   <h3>Description: <small><%= current_link.description %></small></h3>
 
   <br>
   <%= link_to 'Back', folder_path(current_link.folder_id) %> |
   <%= link_to 'Edit', edit_link_path %>
-
-  <!-- Add Tag Modal -->
-  <div class="modal fade" id="tagAddModal" tabindex="-1" role="dialog" aria-labelledby="tagAddLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="tagAddLabel">Add a tag</h4>
-        </div>
-        <%= form_tag("/links/#{current_link.id}/add_tag", :method => "post") do %>
-          <div class="modal-body">
-            <%= label_tag(:tag, "Tag: ") %>
-            <%= text_field_tag(:tag, "", :class => "form-control") %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <%= submit_tag("Add tag", :class => "btn btn-primary") %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render 'shared/tag_modal', :add_url => add_tag_link_path(current_link) %>
 </div>
-
-<script>
-  $('.tagz')
-    .mouseenter(function () {
-      var tagBtn = this.lastElementChild.lastElementChild;
-      $(tagBtn).removeClass("hidden").addClass("show");
-    })
-    .mouseleave(function () {
-      var tagBtn = this.lastElementChild.lastElementChild;
-      $(tagBtn).removeClass("show").addClass("hidden");
-    });
-
-  $('.modal').on('shown.bs.modal', function () {
-    lastfocus = $(this);
-    $(this).find("input:text:visible:first").focus();
-  });
-</script>

@@ -1,0 +1,21 @@
+<!-- Add Tag Modal -->
+<div class="modal fade" id="tagAddModal" tabindex="-1" role="dialog" aria-labelledby="tagAddLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="tagAddLabel">Add a tag</h4>
+      </div>
+      <%= form_tag(add_url, :method => "post") do %>
+        <div class="modal-body">
+          <%= label_tag(:tag, "Tag: ") %>
+          <%= text_field_tag(:tag, "", :class => "form-control") %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= submit_tag("Add tag", :class => "btn btn-primary") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

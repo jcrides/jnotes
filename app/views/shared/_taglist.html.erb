@@ -1,0 +1,22 @@
+<div class="row">
+  <h5 class="col-xs-12">Tags:</h5>
+  <div id="tagdisplay">
+    <ul class="taglist col-xs-12">
+      <li class="tag-buttons" id="tag-add">
+        <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#tagAddModal">
+          Add tag <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </li>
+      <% current_item.tag_list.each do |tag| %>
+        <li class="tagz tag-buttons"><span id="<%= tag %>" class="label tag-label"><%= tag %></span>
+          <%= form_tag(del_url, :method => 'delete') do %>
+            <%= hidden_field_tag("tag", tag) %>
+            <button type="submit" class="btn btn-xs btn-default hidden tag-delete" id="<%= "#{tag}-del" %>">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
