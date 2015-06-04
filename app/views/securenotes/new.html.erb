@@ -1,6 +1,8 @@
-<h1>New note</h1>
+<div class='col-xs-10 col-xs-offset-1'>
+  <h1>New note</h1>
 
-<%= render 'form', :securenote => @securenote, :url => notebook_securenotes_path(@securenote.notebook_id) %>
+  <%= render 'form', :securenote => @securenote, :url => notebook_securenotes_path(@securenote.notebook_id) %>
 
-<%= link_to 'Show', @securenote %> |
-<%= link_to 'Back', notebook_path(@securenote.notebook_id) %>
+  <%= link_to 'Show', @securenote %> |
+  <%= link_to 'Back', notebook_path(@securenote.notebook_id) %>
+</div>
