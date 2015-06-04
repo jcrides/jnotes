@@ -105,4 +105,17 @@ class LinksControllerTest < ActionController::TestCase
     end
     assert_redirected_to folder_path(@link.folder_id)
   end
+
+  test 'should add tag' do
+    post :add_tag, :id => @link.id, :tag => 'jello'
+
+    assert_equal ['jello'], @link.tag_list, 'Should add jello tag'
+  end
+
+  test 'should remove tag' do
+    post :add_tag, :id => @link.id, :tag => 'jello'
+    delete :del_tag, :id => @link.id, :tag => 'jello'
+
+    assert_equal [], @link.tag_list, 'Should delete jello tag'
+  end
 end

@@ -82,4 +82,17 @@ class FoldersControllerTest < ActionController::TestCase
     end
     assert_redirected_to folders_path
   end
+
+  test 'should add tag' do
+    post :add_tag, :id => @folder.id, :tag => 'jello'
+
+    assert_equal ['jello'], @folder.tag_list, 'Should add jello tag'
+  end
+
+  test 'should remove tag' do
+    post :add_tag, :id => @folder.id, :tag => 'jello'
+    delete :del_tag, :id => @folder.id, :tag => 'jello'
+
+    assert_equal [], @folder.tag_list, 'Should delete jello tag'
+  end
 end
