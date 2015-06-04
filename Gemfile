@@ -11,6 +11,7 @@ gem 'attr_encrypted'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'brakeman', :require => false
+gem 'ckeditor'
 gem 'devise', '>= 3.2.4'
 gem 'factory_girl_rails', '~> 4.0'
 gem 'figaro', '>= 1.0.0'
