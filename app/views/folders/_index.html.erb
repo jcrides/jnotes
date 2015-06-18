@@ -1,0 +1,26 @@
+<div class='col-xs-10 col-xs-offset-1'>
+  <h1>Listing Folders</h1>
+  <table class='table table-condensed'>
+    <thead>
+    <tr>
+      <th class='col-xs-8'>Name</th>
+      <th class='col-xs-4' colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @folders.each do |folder| %>
+      <tr>
+        <td class='col-xs-8'><%= link_to folder.name, folder  %></td>
+        <td class='col-xs-1'><%= link_to 'Edit', edit_folder_path(folder) %></td>
+        <td class='col-xs-1'><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class='col-xs-2'>&nbsp;</td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <%= link_to 'New Folder', new_folder_path %>
+  <br>
+  <%= link_to 'Home', '/' %>
+</div>

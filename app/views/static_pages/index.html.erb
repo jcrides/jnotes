@@ -1,5 +1,10 @@
 <h1 class="text-center">JNotes</h1>
 <br>
-<p class="text-center">
-  <%= link_to 'Notebooks', notebooks_path %> | <%= link_to 'Folders', folders_path %>
-</p>
+<% if current_user %>
+  <%= render 'notebooks/index' %>
+  <%= render 'folders/index' %>
+<% else %>
+  <p class="text-center">
+    <%= link_to 'Notebooks', notebooks_path %> | <%= link_to 'Folders', folders_path %>
+  </p>
+<% end %>

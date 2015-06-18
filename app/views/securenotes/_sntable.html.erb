@@ -11,7 +11,7 @@
   <% @securenotes.each do |securenote| %>
     <tr>
       <td class='col-xs-2'><%= link_to securenote.title, securenote_path(securenote) %>&nbsp;&nbsp;</td>
-      <td class='col-xs-8'><%= securenote.note_text %></td>
+      <td class='col-xs-8'><%= securenote.note_text[0..80].html_safe %></td>
       <td class='col-xs-1'><%= link_to 'Edit', edit_securenote_path(securenote) %></td>
       <td class='col-xs-1'><%= link_to 'Delete', securenote, :method => :delete, :data => { confirm: 'Are you sure?'} %></td>
     </tr>
