@@ -2,8 +2,8 @@ language: ruby
 cache: bundler
 rvm:
   - "2.2.0"
-addons:
-  postgresql: "9.3"
+services:
+  - mysql
 before_script:
-  - psql -c 'create database jnotes_test;' -U postgres
+  - mysql -e 'create database jnotes_test;'
   - cp config/database.yml.travis config/database.yml
