@@ -15,11 +15,14 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  username: jnotes
+  password: password
+  host: localhost
 
 development:
   <<: *default
@@ -81,5 +84,5 @@ test:
 production:
   <<: *default
   database: jnotes_production
-  username: jnotes
+  host: embnas
   password: <%= ENV['JNOTES_DATABASE_PASSWORD'] %>

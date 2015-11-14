@@ -1,6 +1,9 @@
-<h1>New Link</h1>
+<div class='col-xs-10 col-xs-offset-1'>
+  <h1>New Link</h1>
 
-<%= render 'form', :link => @link, :url => folder_links_path(@link.folder_id) %>
+  <%= render 'form', :link => @link, :url => folder_links_path(@link.folder_id) %>
 
-<%= link_to 'Show', @link %> |
-<%= link_to 'Back', folder_path(@link.folder_id) %>
+  <%= link_to 'Show', @link %> |
+  <%= link_to 'Back', folder_path(@link.folder_id) %>
+
+</div>
